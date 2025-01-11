@@ -1,5 +1,6 @@
 package com.literalura.challenge.principal;
 
+import com.literalura.challenge.model.Book;
 import com.literalura.challenge.model.BookData;
 import com.literalura.challenge.service.APIconsume;
 import com.literalura.challenge.service.APIresponse;
@@ -23,6 +24,7 @@ public class PrincipalMenu {
         System.out.println(json);
         var data = converter.getData(json, APIresponse.class);
         System.out.println(data);
-
+        var firstBook = new Book(data.results().get(0));
+        System.out.println(firstBook);
     }
 }

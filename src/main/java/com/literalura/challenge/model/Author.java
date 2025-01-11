@@ -13,6 +13,12 @@ public class Author {
         this.death_year = death_year;
     }
 
+    public Author(AuthorData authorData){
+        this.name = authorData.name();
+        this.birth_year = authorData.birth_year();
+        this.death_year = authorData.death_year();
+    }
+
     public String getName() {
         return name;
     }

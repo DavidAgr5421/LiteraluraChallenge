@@ -1,6 +1,7 @@
 package com.literalura.challenge.model;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Book {
     private Integer id;
@@ -15,9 +16,12 @@ public class Book {
         this.languages = languages;
     }
 
+    public Book(){}
+
     public Book(BookData book) {
         this.languages = book.languages();
         this.title = book.title();
+        this.authors = book.authors().stream().map(a -> new Author(a)).collect(Collectors.toList());
         this.id = book.id();
     }
 
@@ -57,7 +61,7 @@ public class Book {
     public String toString() {
         return "----LIBRO----\n"+
                 "Titulo: "+title+"\n"+
-                "Autor(es): "+authors+"\n"+
+                "Autor(es): \n"+authors+"\n"+
                 "Idiomas: "+languages+"\n";
     }
 }
