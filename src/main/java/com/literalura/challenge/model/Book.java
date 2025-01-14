@@ -15,19 +15,19 @@ public class Book {
     @Column(unique = true)
     private String title;
     private long download_count;
-    @ManyToMany
-    @JoinTable(name = "book_author", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
-    private List<Author> authors;
-    @ElementCollection
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "author_id")
+    private Author author;
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "book_language", joinColumns = @JoinColumn(name = "book_id"))
     @Column(name = "language")
     private List<String> languages;
 
-    public Book(Long id, String title, long download_count, List<Author> authors, List<String> languages) {
+    public Book(Long id, String title, long download_count, Author author, List<String> languages) {
         this.id = id;
         this.title = title;
         this.download_count = download_count;
-        this.authors = authors;
+        this.author = author;
         this.languages = languages;
     }
 
@@ -37,8 +37,7 @@ public class Book {
         this.languages = book.languages();
         this.title = book.title();
         this.download_count = book.download_count();
-        this.authors = book.authors().stream().map(a -> new Author(a)).collect(Collectors.toList());
-        this.id = book.id();
+        this.author = new Author(book.authors().get(0));
     }
 
     public long getDownload_count() {
@@ -65,12 +64,12 @@ public class Book {
         this.title = title;
     }
 
-    public List<Author> getAuthors() {
-        return authors;
+    public Author getAuthor() {
+        return author;
     }
 
-    public void setAuthors(List<Author> authors) {
-        this.authors = authors;
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
     public List<String> getLanguages() {
@@ -85,8 +84,9 @@ public class Book {
     public String toString() {
         return "----LIBRO----\n"+
                 "Titulo: "+title+"\n"+
-                "Autor(es): \n"+authors+"\n"+
+                "Autor(es): \n"+author+"\n"+
                 "Idiomas: "+languages+"\n"+
-                "Descargas: "+download_count+"\n";
+                "Descargas: "+download_count+"\n"+
+                "------------\n";
     }
 }

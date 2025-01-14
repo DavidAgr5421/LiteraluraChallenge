@@ -10,10 +10,11 @@ public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String name;
     private Long birth_year;
     private Long death_year;
-    @ManyToMany(mappedBy = "authors")
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Book> books;
 
     public Author(String name, Long birth_year, Long death_year) {
@@ -27,6 +28,8 @@ public class Author {
         this.birth_year = authorData.birth_year();
         this.death_year = authorData.death_year();
     }
+
+    public Author(){}
 
     public String getName() {
         return name;
@@ -55,13 +58,17 @@ public class Author {
     @Override
     public String toString() {
         return "----Autor----\n" +
-                "Nombre : " + name + '\n';
+                "Nombre : " + name + '\n'+
+                "----------";
     }
 
     public String toStringFull(){
+        List<String> bookTitles = books.stream().map(Book::getTitle).toList();
         return "----Autor----\n" +
                 "Nombre : " + name + '\n'+
                 "Fecha de Nacimiento : " + birth_year + '\n'+
-                "Fecha de Fallecimiento : " + death_year + '\n';
+                "Fecha de Fallecimiento : " + death_year + '\n'+
+                "Libros : " + bookTitles + '\n'+
+                "----------";
     }
 }

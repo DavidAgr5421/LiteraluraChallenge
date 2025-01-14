@@ -1,7 +1,6 @@
 package com.literalura.challenge.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.literalura.challenge.model.Book;
 import com.literalura.challenge.model.BookData;
 
 import java.util.List;
