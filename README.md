@@ -33,5 +33,4 @@
 2. Compila y ejecuta el proyecto con tu IDE o utilizando Maven/Gradle.
 3. Una vez ejecutado, el sistema te permitirá interactuar mediante un menú en la consola.
 
-### Ejemplo de interacción
 
